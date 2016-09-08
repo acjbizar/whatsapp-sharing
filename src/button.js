@@ -84,24 +84,6 @@
     };
 
     /**
-     * Returns CSS style element.
-     *
-     * @returns {HTMLElement}
-     */
-    WASHAREBTN.prototype.addStyling = function () {
-        var s = document.createElement("style"),
-            c = "[[minified_css]]";
-
-        s.type = "text/css";
-        if (s.styleSheet) {
-            s.styleSheet.cssText = c;
-        } else {
-            s.appendChild(document.createTextNode(c));
-        }
-        return s;
-    };
-
-    /**
      * Set attributes on the given button element and returns it.
      *
      * @param b
@@ -154,10 +136,7 @@
     WASHAREBTN.prototype.iFrameOnload = function () {
         return function () {
             this.contentDocument.body.appendChild(this.button);
-            this.contentDocument.getElementsByTagName('head')[0].appendChild(root.WASHAREBTN.addStyling());
 
-            var meta = document.createElement('meta');
-            meta.setAttribute('charset', 'utf-8');
             this.contentDocument.getElementsByTagName('head')[0].appendChild(meta);
 
             this.width = Math.ceil(this.contentDocument.getElementsByTagName('a')[0].getBoundingClientRect().width);
@@ -169,7 +148,7 @@
      * Create WASHAREBTNS from all elements with the className wa_btn.
      */
     WASHAREBTN.prototype.crBtn = function () {
-        var b = [].slice.call(document.querySelectorAll(".wa_btn"));
+        var b = [].slice.call(document.querySelectorAll("a[href*='whatsapp://send']"));
         var iframes = [];
 
         for (var i = 0; i < b.length; i++) {
